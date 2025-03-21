@@ -1,6 +1,15 @@
 # 🏦 ByteBank
 O ByteBank é um projeto de simulação de um banco digital. Ao acessar o projeto, você poderá ver o saldo de uma conta, realizar algumas transações como depósito, transferência e pagamento de boletos, e consultar o extrato.
 
+## Funcionalidades do projeto
+O projeto contará com o desenvolvimento de:
+- Classe conta e armazenador;
+- Atributos e construtor de conta;
+- Modificadores de acesso;
+- Métodos estáticos;
+- Herança de classes;
+- Decorators de validação.
+
 ## 💻 Tecnologias utilizadas
 Para construção desse projeto foram utilizados:
 
@@ -25,3 +34,4 @@ npm install
 ## 📕 Aprendizados
 Neste projeto construímos uma aplicação com TypeScript utilizando o paradigma de programação Orientado à Objetos. 
 Trabalhamos com modificadores de acesso, herança e polimorfismo.
+
