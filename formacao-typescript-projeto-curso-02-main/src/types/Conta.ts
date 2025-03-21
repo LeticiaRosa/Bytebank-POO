@@ -1,40 +1,40 @@
-import { Armazenador } from "./Armazenador";
-import { ValidaDebito, ValidaDeposito } from "./Decorator";
-import { GrupoTransacao } from "./GrupoTransacao";
-import { TipoTransacao } from "./TipoTransacao";
-import { Transacao } from "./Transacao";
+import { Armazenador } from "./Armazenador.js";
+import { ValidaDebito, ValidaDeposito } from "./Decorator.js";
+import { GrupoTransacao } from "./GrupoTransacao.js";
+import { TipoTransacao } from "./TipoTransacao.js";
+import { Transacao } from "./Transacao.js";
 
 export class Conta {
   protected nome: string;
   protected saldo: number = Armazenador.obter<number>("saldo") || 0;
   private transacoes: Transacao[] =
-    Armazenador.obter<Transacao[]>(
-      "transacoes",
+   JSON.parse(Armazenador.obter("transacoes",
       (key: string, value: string) => {
         if (key === "data") {
           return new Date(value);
         }
         return value;
       }
-    ) || [];
-
+    ) )
+    || [];
+  
   constructor(nome: string) {
     this.nome = nome;
   }
 
   getGruposTransacoes(): GrupoTransacao[] {
     const gruposTransacoes: GrupoTransacao[] = [];
-    const listaTransacoes: Transacao[] = structuredClone(this.transacoes);
-    const transacoesOrdenadas: Transacao[] = listaTransacoes.sort(
-      (t1, t2) => t2.data.getTime() - t1.data.getTime()
-    );
+    const listaTransacoes: Transacao[] = this.transacoes ;
+    const transacoesOrdenadas = listaTransacoes.sort((a, b) =>  new Date(b.data).getTime() - new Date(a.data).getTime());
+
+
     let labelAtualGrupoTransacao: string = "";
 
     for (let transacao of transacoesOrdenadas) {
-      let labelGrupoTransacao: string = transacao.data.toLocaleDateString(
-        "pt-br",
-        { month: "long", year: "numeric" }
-      );
+      let labelGrupoTransacao: string = new Date(transacao.data)?.toLocaleDateString("pt-br", {
+        month: "long",
+        year: "numeric",
+      });
       if (labelAtualGrupoTransacao !== labelGrupoTransacao) {
         labelAtualGrupoTransacao = labelGrupoTransacao;
         gruposTransacoes.push({
@@ -70,18 +70,11 @@ export class Conta {
     }
 
     this.transacoes.push(novaTransacao);
-    console.log(this.getGruposTransacoes());
     Armazenador.salvar("transacoes", JSON.stringify(this.transacoes));
   }
+
   @ValidaDebito
   debitar(valor: number): void {
-    if (valor <= 0) {
-      throw new Error("O valor a ser debitado deve ser maior que zero!");
-    }
-    if (valor > this.saldo) {
-      throw new Error("Saldo insuficiente!");
-    }
-
     this.saldo -= valor;
     Armazenador.salvar("saldo", this.saldo.toString());
   }
@@ -96,7 +89,7 @@ export class Conta {
 export class ContaPremium extends Conta {
   registrarTransacao(transacao: Transacao): void {
     if (transacao.tipoTransacao === TipoTransacao.DEPOSITO) {
-      console.log("Ganhou umm bonus de 0.50 centavois");
+      console.log("Ganhou um bonus de 0.50 centavois");
       transacao.valor += 0.5;
     }
     super.registrarTransacao(transacao);

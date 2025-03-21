@@ -2,7 +2,7 @@ export function ValidaDebito(
   target: any,
   propertyKey: string,
   descriptor: PropertyDescriptor
-) {
+){
   const originalMethod = descriptor.value;
   descriptor.value = function (valorDoDebito: number) {
     if (valorDoDebito <= 0) {
@@ -22,7 +22,6 @@ export function ValidaDeposito(
   descriptor: PropertyDescriptor
 ) {
   const originalMethod = descriptor.value;
-  console.log("descriptor", descriptor);
   descriptor.value = function (valorDoDeposito: number) {
     if (valorDoDeposito <= 0) {
       throw new Error(

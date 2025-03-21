@@ -12,6 +12,7 @@ if (elementoDataAcesso != null) {
 renderizarSaldo();
 function renderizarSaldo(): void {
     if (elementoSaldo != null) {
+        console.log(formatarMoeda(Conta.getSaldo()))
         elementoSaldo.textContent = formatarMoeda(Conta.getSaldo());
     }
 }

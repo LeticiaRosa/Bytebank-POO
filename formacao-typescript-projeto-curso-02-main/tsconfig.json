@@ -1,11 +1,9 @@
 {
     "compilerOptions": {
-        "target": "ES2022",
-        "outDir": "./dist/js/",
+        "module": "es2022",
+        "outDir": "./dist",
         "noEmitOnError": true,
-        "experimentalDecorators": true,
-    },
-    "include": [
-        "./src/**/*"
-    ]
+        "lib": ["es2022", "dom"],
+        "experimentalDecorators": true, 
+    }
 }

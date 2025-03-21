@@ -5,7 +5,7 @@ const transacoes = JSON.parse(localStorage.getItem('transacoes'), (key, value) =
     return value;
 }) || [];
 export const TransacoesManager = {
-    registrarTransacao: (novaTransacao) => {
+    registrarTransacao: (novaTransacao:any) => {
         transacoes.push(novaTransacao);
     },
     getTransacoes: () => {
