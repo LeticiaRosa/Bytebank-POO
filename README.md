@@ -22,7 +22,7 @@ cd pasta
 npx tsc -w
 ```
 
-### 2️⃣ Live Server
+### 3️⃣ Live Server
 Para visualizar no navegador o projeto funcionando, pode-se utilizar a extensão Live Server, disponível no Visual Studio Code.
 
 ## 📕 Aprendizados
@@ -35,3 +35,5 @@ Trabalhamos com:
 - Métodos estáticos;
 - Herança de classes;
 - Decorators de validação.
+
+![image](https://github.com/user-attachments/assets/fa945847-5d3f-42ae-9572-7d291ad68906)
