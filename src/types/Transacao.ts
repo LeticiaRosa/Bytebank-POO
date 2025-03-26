@@ -1,6 +1,6 @@
 import { TipoTransacao } from "./TipoTransacao.js";
 
-export type Transacao = {
+export type TransacaoType = {
     tipoTransacao: TipoTransacao;
     valor: number;
     data: Date;

@@ -3,11 +3,12 @@ import { FormatoData } from "../types/FormatoData.js";
 import { GrupoTransacao } from "../types/GrupoTransacao.js";
 import { formatarMoeda, formatarData } from "../utils/formatters.js";
 
-const elementoRegistroTransacoesExtrato: HTMLElement = document.querySelector(".extrato .registro-transacoes");
 
-renderizarExtrato();
-function renderizarExtrato(): void {
+reinderizarExtrato();
+function reinderizarExtrato(): void {
     const gruposTransacoes: GrupoTransacao[] = Conta.getGruposTransacoes();
+    
+    const elementoRegistroTransacoesExtrato: HTMLElement = document.querySelector(".extrato .registro-transacoes");
     elementoRegistroTransacoesExtrato.innerHTML = "";
     let htmlRegistroTransacoes: string = "";
 
@@ -44,7 +45,7 @@ function renderizarExtrato(): void {
 
 const ExtratoComponent = {
     atualizar(): void {
-        renderizarExtrato();
+        reinderizarExtrato();
     }
 }
 

@@ -1,9 +1,9 @@
 import { ValidaDebito } from "../decorators/validaDebito.js";
 import { ValidaDeposito } from "../decorators/validaDeposito.js";
-import { Armazenador } from "./Armazenador.js";
-import { GrupoTransacao } from "./GrupoTransacao.js";
-import { TipoTransacao } from "./TipoTransacao.js";
-import { TransacaoType } from "./Transacao.js";
+import { Armazenador } from "../types/Armazenador.js";
+import { GrupoTransacao } from "../types/GrupoTransacao.js";
+import { TipoTransacao } from "../types/TipoTransacao.js";
+import { TransacaoType } from "../types/Transacao.js";
 
 export class Conta {
   protected nome: string;
@@ -58,6 +58,7 @@ export class Conta {
   }
 
   registrarTransacao(novaTransacao: TransacaoType): void {
+    console.log(novaTransacao);
     if (novaTransacao.tipoTransacao == TipoTransacao.DEPOSITO) {
       this.depositar(novaTransacao.valor);
     } else if (
