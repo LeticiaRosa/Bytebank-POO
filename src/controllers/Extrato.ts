@@ -4,20 +4,19 @@ import { GrupoTransacao } from "../types/GrupoTransacao.js";
 import { formatarData, formatarMoeda } from "../utils/formatters.js";
 import Conta from "./Conta.js";
 
-export class Extrato {
-
-  gruposTransacoes: GrupoTransacao[]
+class Extrato {
+  private gruposTransacoes: GrupoTransacao[]
   @DomInject(".extrato .registro-transacoes")
-  elementoRegistroTransacoesExtrato: HTMLElement
-  htmlRegistroTransacoes: string = "";
+  private elementoRegistroTransacoesExtrato: HTMLElement
+  private htmlRegistroTransacoes: string = "";
 
   constructor() {
-    this.gruposTransacoes = Conta.getGruposTransacoes();
     this.reinderizarExtrato();
-    this.elementoRegistroTransacoesExtrato.innerHTML = this.htmlRegistroTransacoes;
   }
   
   reinderizarExtrato(): void {
+    this.gruposTransacoes = Conta.getGruposTransacoes();
+    this.htmlRegistroTransacoes = "";
     for (let grupoTransacao of this.gruposTransacoes)
         {
             let htmlTransacaoItem: string = "";
@@ -45,8 +44,9 @@ export class Extrato {
         if (this.htmlRegistroTransacoes === "") {
           this.htmlRegistroTransacoes = "<div>Não há transações registradas.</div>";
         }
+        this.elementoRegistroTransacoesExtrato.innerHTML = this.htmlRegistroTransacoes;
+
   }
      
 }
-const Extrato1 = new Extrato();
-export default Extrato1;
+export default new Extrato();

@@ -1,6 +1,6 @@
 import { ValidaDebito } from "../decorators/validaDebito.js";
 import { ValidaDeposito } from "../decorators/validaDeposito.js";
-import { Armazenador } from "../types/Armazenador.js";
+import { Armazenador } from "./Armazenador.js";
 import { GrupoTransacao } from "../types/GrupoTransacao.js";
 import { TipoTransacao } from "../types/TipoTransacao.js";
 import { TransacaoType } from "../types/Transacao.js";
@@ -58,7 +58,6 @@ export class Conta {
   }
 
   registrarTransacao(novaTransacao: TransacaoType): void {
-    console.log(novaTransacao);
     if (novaTransacao.tipoTransacao == TipoTransacao.DEPOSITO) {
       this.depositar(novaTransacao.valor);
     } else if (
@@ -72,19 +71,19 @@ export class Conta {
     }
 
     this.transacoes.push(novaTransacao);
-    Armazenador.salvar("transacoes", JSON.stringify(this.transacoes));
+    Armazenador.salvar<string>("transacoes", JSON.stringify(this.transacoes));
   }
 
   @ValidaDebito
   debitar(valor: number): void {
     this.saldo -= valor;
-    Armazenador.salvar("saldo", this.saldo.toString());
+    Armazenador.salvar<string>("saldo", this.saldo.toString());
   }
 
   @ValidaDeposito
   depositar(valor: number): void {
     this.saldo += valor;
-    Armazenador.salvar("saldo", this.saldo.toString());
+    Armazenador.salvar<string>("saldo", this.saldo.toString());
   }
 }
 
@@ -98,5 +97,4 @@ export class ContaPremium extends Conta {
   }
 }
 
-const Conta1 = new Conta("Conta Corrente");
-export default Conta1;
+export default new Conta("Conta Corrente");

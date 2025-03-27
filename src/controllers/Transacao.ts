@@ -1,20 +1,19 @@
 import { DomInject } from "../decorators/domInject.js";
 import { TipoTransacao } from "../types/TipoTransacao.js";
 import { TransacaoType } from "../types/Transacao.js";
-import Conta from "./Conta.js";
+import Conta from "./Conta.js"; // Correção do caminho
 import Extrato from "./Extrato.js";
 import Saldo from "./Saldo.js";
 
-export class Transacao {
+class Transacao {
   @DomInject(".block-nova-transacao form")
-  elementoFormulario: HTMLFormElement;
+  private elementoFormulario: HTMLFormElement;
   @DomInject("#tipoTransacao")
-  inputTipoTransacao: HTMLSelectElement;
+  private inputTipoTransacao: HTMLSelectElement;
   @DomInject("#valor")
-  inputValor: HTMLInputElement;    
+  private inputValor: HTMLInputElement;    
   @DomInject("#data")
-  inputData: HTMLInputElement;    
-  novaTransacao: TransacaoType; 
+  private inputData: HTMLInputElement;    
   
   constructor() {
     this.elementoFormulario.addEventListener("submit", (event) => {
@@ -26,13 +25,12 @@ export class Transacao {
               return;
           }
   
-          this.novaTransacao = {
+          let novaTransacao: TransacaoType = {
               tipoTransacao: this.inputTipoTransacao.value as TipoTransacao,
               valor: this.inputValor.valueAsNumber, 
               data: new Date(this.inputData.value + " 00:00:00"),
           }
-  
-          Conta.registrarTransacao(this.novaTransacao);
+          Conta.registrarTransacao(novaTransacao);
           Saldo.reinderizarSaldo();
           Extrato.reinderizarExtrato();
           this.elementoFormulario.reset();
@@ -44,6 +42,4 @@ export class Transacao {
   }
 }
 
-const Transacao1 = new Transacao();
-
-export default Transacao1;
+export default new Transacao();

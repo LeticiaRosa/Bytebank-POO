@@ -1,22 +1,22 @@
 import { formatarData, formatarMoeda } from "../utils/formatters.js";
 import { FormatoData } from "../types/FormatoData.js";
-import Conta from "../types/Conta.js";
+import Conta from "./Conta.js";
 import { DomInject } from "../decorators/domInject.js";
 
-export class Saldo {
+class Saldo {
   @DomInject(".saldo-valor .valor")
-    elementoSaldo: HTMLElement;
+  private elementoSaldo: HTMLElement;
   @DomInject(".block-saldo time")
-    elementoDataAcesso: HTMLElement;  
+  private elementoDataAcesso: HTMLElement;  
 
-    constructor() {
+  constructor() {
       this.reinderizarSaldo();
       this.reinderizarDataAcesso();
-    }
+  }
 
   reinderizarSaldo(): void {
       if (this.elementoSaldo != null) {
-          this.elementoSaldo.textContent = formatarMoeda(Conta.getSaldo());
+        this.elementoSaldo.textContent = formatarMoeda(Conta.getSaldo());
       }
   }
   reinderizarDataAcesso(): void {
@@ -25,5 +25,4 @@ export class Saldo {
     }
   }
 }
-const Saldo1 = new Saldo();
-export default Saldo1;
+export default new Saldo();
